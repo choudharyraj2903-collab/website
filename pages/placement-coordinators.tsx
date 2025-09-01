@@ -242,7 +242,7 @@ const DPC =[
 	{
 		"name": "Anurag Yadav",
 		"department": "Chemical Engineering",
-		"phone": "94564447767",
+		"phone": "9456447767",
 		"email": "anuragy24@iitk.ac.in"
 	},
 	{
