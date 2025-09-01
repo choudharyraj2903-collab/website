@@ -6,7 +6,6 @@ import styled from "styled-components"
 
 import { useNewsletterModalContext } from "contexts/newsletter-modal.context"
 import { ScrollPositionEffectProps, useScrollPosition } from "hooks/useScrollPosition"
-import { NavItems, SingleNavItem } from "types"
 import { media } from "utils/media"
 
 import Button from "./Button"
@@ -16,6 +15,18 @@ import { HamburgerIcon } from "./HamburgerIcon"
 import Logo from "./Logo"
 
 const ColorSwitcher = dynamic(() => import("../components/ColorSwitcher"), { ssr: false })
+
+export interface SingleNavItem {
+  title: string;
+  href: string;
+  outlined?: boolean;
+  children?: {
+    title: string;
+    href: string;
+  }[];
+}
+
+export type NavItems = SingleNavItem[];
 
 type NavbarProps = { items: NavItems };
 type ScrollingDirections = "up" | "down" | "none";
@@ -59,7 +70,7 @@ export default function Navbar({ items }: NavbarProps) {
 			return
 		}
 
-		setScrollingDirection(isScrollingUp ? "up" : "down")	
+		setScrollingDirection(isScrollingUp ? "up" : "down")
 		lastScrollY.current = currentScrollY
 	}
 
@@ -79,9 +90,6 @@ export default function Navbar({ items }: NavbarProps) {
 						<NavItem key={singleItem.href} {...singleItem} />
 					))}
 				</NavItemList>
-				{/* <ColorSwitcherContainer>
-					<ColorSwitcher />
-				</ColorSwitcherContainer> */}
 				<HamburgerMenuWrapper>
 					<HamburgerIcon aria-label="Toggle menu" onClick={toggle} />
 				</HamburgerMenuWrapper>
@@ -90,7 +98,7 @@ export default function Navbar({ items }: NavbarProps) {
 	)
 }
 
-function NavItem({ href, title, outlined }: SingleNavItem) {
+function NavItem({ href, title, outlined, children }: SingleNavItem) {
 	const { setIsModalOpened } = useNewsletterModalContext()
 
 	function showNewsletterModal() {
@@ -101,13 +109,43 @@ function NavItem({ href, title, outlined }: SingleNavItem) {
 		return <CustomButton onClick={showNewsletterModal}>{title}</CustomButton>
 	}
 
-	return (
-		<NavItemWrapper outlined={outlined}>
-			<NextLink href={href} passHref>
-				<a>{title}</a>
-			</NextLink>
-		</NavItemWrapper>
-	)
+	if (children) {
+		return (
+			<NavItemWrapper>
+				<NextLink href={href} passHref>
+					<a>
+						{title}
+						<svg
+							width="20"
+							height="20"
+							viewBox="0 0 15 15"
+							fill="none"
+							xmlns="http://www.w3.org/2000/svg"
+							style={{ marginLeft: "0.25rem" }}
+						>
+							<path
+								d="M3.13523 6.15803C3.3241 5.95657 3.64052 5.94637 3.84197 6.13523L7.5 9.56464L11.158 6.13523C11.3595 5.94637 11.6759 5.95657 11.8648 6.15803C12.0536 6.35949 12.0434 6.67591 11.842 6.86477L7.84197 10.6148C7.64964 10.7951 7.35036 10.7951 7.15803 10.6148L3.15803 6.86477C2.95657 6.67591 2.94637 6.35949 3.13523 6.15803Z"
+								fill="currentColor"
+								fillRule="evenodd"
+								clipRule="evenodd"
+							></path>
+						</svg>
+					</a>
+				</NextLink>
+				<DropdownMenu>
+					{children.map((child) => (
+						<DropdownMenuItem key={child.href}>
+							<NextLink href={child.href} passHref>
+								<a>{child.title}</a>
+							</NextLink>
+						</DropdownMenuItem>
+					))}
+				</DropdownMenu>
+			</NavItemWrapper>
+		)
+	}
+
+	return null
 }
 
 const CustomButton = styled(Button)`
@@ -134,24 +172,74 @@ const LogoWrapper = styled.a`
   display: flex;
   margin-right: auto;
   text-decoration: none;
-
   color: rgb(var(--logoColor));
 `
+const DropdownMenu = styled.ul`
+  display: block; /* Changed from none to allow transitions to work */
+  position: absolute;
+  top: 100%;
+  left: 0;
+  list-style: none;
+  padding: 1rem;
+  min-width: 220px;
+  background-color: rgb(var(--navbarBackground));
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  z-index: calc(var(--z-navbar) + 1);
+  
+  /* Initial hidden state */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  
+  /* Transition for hiding */
+  transition: opacity 0.15s ease, transform 0.15s ease, visibility 0s 0.15s;
+`
 
-const NavItemWrapper = styled.li<Partial<SingleNavItem>>`
+const DropdownMenuItem = styled.li`
+  a {
+    font-size: 1.2rem;
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: normal;
+    padding: 0.75rem 1.25rem;
+    color: rgb(var(--text), 0.85);
+    display: block;
+    border-radius: 0.25rem;
+    white-space: nowrap;
+    text-decoration: none;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: rgba(var(--primary), 0.1);
+      color: rgb(var(--primary));
+    }
+  }
+`
+
+const NavItemWrapper = styled.li<{ outlined?: boolean }>`
+  position: relative;
   background-color: ${(p) => (p.outlined ? "rgb(var(--primary))" : "transparent")};
   border-radius: 0.5rem;
   font-size: 1.3rem;
   text-transform: uppercase;
   line-height: 2;
+  
+  /* A slightly larger hover "bridge" */
+  padding-bottom: 1rem; 
+  margin-bottom: -1rem;
 
-  &:hover {
-    background-color: ${(p) => (p.outlined ? "rgb(var(--primary), 0.8)" : "transparent")};
-    transition: background-color 0.2s;
+  &:hover > ${DropdownMenu} {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    /* Transition for appearing instantly */
+    transition-delay: 0s;
   }
 
   a {
     display: flex;
+    align-items: center;
     color: ${(p) => (p.outlined ? "rgb(var(--textSecondary))" : "rgb(var(--text), 0.75)")};
     letter-spacing: 0.025em;
     text-decoration: none;
@@ -187,9 +275,4 @@ const Content = styled(Container)`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-`
-
-const ColorSwitcherContainer = styled.div`
-  width: 4rem;
-  margin: 0 1rem;
 `

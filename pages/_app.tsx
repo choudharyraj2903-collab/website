@@ -17,6 +17,7 @@ import Navbar from "components/Navbar"
 import NavigationDrawer from "components/NavigationDrawer"
 import NewsletterModal from "components/NewsletterModal"
 import { NewsletterModalContextProvider, useNewsletterModalContext } from "contexts/newsletter-modal.context"
+import { navLinks } from "data/navLinks"
 import { NavItems } from "types"
 
 const navItems: NavItems = [
@@ -52,7 +53,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
 			<Providers>
 				<Modals />
-				<Navbar items={navItems} />
+				<Navbar items={navLinks} />
 				<TinaEditProvider
 					editMode={
 						<TinaCMS
