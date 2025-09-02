@@ -50,12 +50,6 @@ const deptBrochure = [
 		link: "/assets/Brochures25_26/CSE.pdf"
 	},
 	{
-		idx: "26",
-		dept: "Department of Management Sciences",
-		url: "https://www.iitk.ac.in/doms/",
-		link: "/assets/Brochures25_26/DoMS.pdf"
-	},
-	{
 		idx: "8",
 		dept: "Design",
 		url: "https://www.iitk.ac.in/design/",
