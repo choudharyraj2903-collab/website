@@ -242,7 +242,7 @@ const DPC =[
 	{
 		"name": "Anurag Yadav",
 		"department": "Chemical Engineering",
-		"phone": "9305178326",
+		"phone": "9456447767",
 		"email": "anuragy24@iitk.ac.in"
 	},
 	{
@@ -314,7 +314,7 @@ const DPC =[
 	{
 		"name": "Aditya Narayan Singh",
 		"department": "Economics",
-		"phone": "8240807447",
+		"phone": "9305178326",
 		"email": "adityans24@iitk.ac.in"
 	},
 	{
