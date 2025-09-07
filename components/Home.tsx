@@ -6,25 +6,20 @@ export default function Home() {
   const [currentAsset, setCurrentAsset] = useState('');
   const [isHovered, setIsHovered] = useState(false);
 
-  // We are using a list of static asset URLs here. In a real Next.js app,
-  // you would fetch these from an API or a pre-built list.
   const assets = [
     { src: '/homeAssets/image1.jpg', type: 'image' },
     { src: '/homeAssets/image2.jpg', type: 'image' },
   ];
 
   useEffect(() => {
-    // Set the initial asset
     let currentIndex = 0;
     setCurrentAsset(assets[currentIndex].src);
 
-    // Set up the interval to change the asset every 10 seconds (10000 ms)
     const interval = setInterval(() => {
       currentIndex = (currentIndex + 1) % assets.length;
       setCurrentAsset(assets[currentIndex].src);
     }, 10000);
 
-    // Clean up the interval on component unmount
     return () => clearInterval(interval);
   }, []);
 
@@ -78,7 +73,7 @@ export default function Home() {
   };
 
   const watchNowButtonStyle = {
-    backgroundColor: isHovered ? '#6A0DAD' : '#fff', // Purple on hover
+    backgroundColor: isHovered ? '#6A0DAD' : '#fff',
     color: isHovered ? '#fff' : '#000',
     padding: '1.25rem 4rem',
     borderRadius: '9999px',
@@ -94,13 +89,10 @@ export default function Home() {
 
   return (
     <div style={containerStyle}>
-      {/* Background Asset */}
       <div style={backgroundAssetStyle} />
 
-      {/* Gradient Overlay */}
       <div style={gradientOverlayStyle} />
 
-      {/* Content */}
       <div style={contentWrapperStyle}>
         <h1 style={titleStyle}>SPO IIT KANPUR</h1>
         <a
