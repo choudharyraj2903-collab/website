@@ -96,7 +96,7 @@ export default function Home() {
       <div style={contentWrapperStyle}>
         <h1 style={titleStyle}>SPO IIT KANPUR</h1>
         <a
-          href="https://ras.iitk.ac.in/"
+          href="https://placement.iitk.ac.in/"
           style={watchNowButtonStyle}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
