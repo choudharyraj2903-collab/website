@@ -1,25 +1,20 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 export default function Home() {
-  const [currentAsset, setCurrentAsset] = useState('');
-  const [isHovered, setIsHovered] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const assets = [
-    { src: '/homeAssets/image1.jpg', type: 'image' },
+    { src: '/homeAssets/image1.webp', type: 'image' },
+    { src: '/homeAssets/image3.jpg', type: 'image' },
     { src: '/homeAssets/image2.jpg', type: 'image' },
   ];
 
   useEffect(() => {
-    let currentIndex = 0;
-    setCurrentAsset(assets[currentIndex].src);
-
     const interval = setInterval(() => {
-      currentIndex = (currentIndex + 1) % assets.length;
-      setCurrentAsset(assets[currentIndex].src);
-    }, 10000);
-
+      setCurrentIndex((prev) => (prev + 1) % assets.length);
+    }, 5000); // 5s per slide
     return () => clearInterval(interval);
   }, []);
 
@@ -29,29 +24,31 @@ export default function Home() {
     overflow: 'hidden',
   };
 
-  const backgroundAssetStyle = {
+  const backgroundAssetStyle = (src, active) => ({
     position: 'absolute',
     inset: 0,
     width: '100%',
     height: '100%',
-    objectFit: 'cover',
-    transition: 'opacity 1000ms ease-in-out',
-    backgroundImage: `url(${currentAsset})`,
+    backgroundImage: `url(${src})`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
-  };
+    opacity: active ? 1 : 0,
+    transform: active ? 'scale(1.05)' : 'scale(1.1)',
+    transition: 'opacity 1.5s ease-in-out, transform 8s ease',
+    zIndex: active ? 1 : 0,
+  });
 
   const gradientOverlayStyle = {
     position: 'absolute',
     inset: 0,
     background: `linear-gradient(to top, rgba(0,0,0,0.6), rgba(0,0,0,0) 50%),
                  linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0) 50%)`,
-    zIndex: 5,
+    zIndex: 2,
   };
 
   const contentWrapperStyle = {
     position: 'relative',
-    zIndex: 10,
+    zIndex: 3,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -72,6 +69,8 @@ export default function Home() {
     textShadow: '0 2px 4px rgba(0,0,0,0.5)',
   };
 
+  const [isHovered, setIsHovered] = useState(false);
+
   const watchNowButtonStyle = {
     backgroundColor: isHovered ? '#6A0DAD' : '#fff',
     color: isHovered ? '#fff' : '#000',
@@ -89,7 +88,9 @@ export default function Home() {
 
   return (
     <div style={containerStyle}>
-      <div style={backgroundAssetStyle} />
+      {assets.map((asset, index) => (
+        <div key={asset.src} style={backgroundAssetStyle(asset.src, index === currentIndex)} />
+      ))}
 
       <div style={gradientOverlayStyle} />
 
