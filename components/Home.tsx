@@ -2,10 +2,9 @@
 
 import React, { useState, useEffect } from 'react';
 
-// This is the main App component that will render the home page.
 export default function Home() {
   const [currentAsset, setCurrentAsset] = useState('');
-  const [assetType, setAssetType] = useState('image');
+  const [isHovered, setIsHovered] = useState(false);
 
   // We are using a list of static asset URLs here. In a real Next.js app,
   // you would fetch these from an API or a pre-built list.
@@ -18,13 +17,11 @@ export default function Home() {
     // Set the initial asset
     let currentIndex = 0;
     setCurrentAsset(assets[currentIndex].src);
-    setAssetType(assets[currentIndex].type);
 
     // Set up the interval to change the asset every 10 seconds (10000 ms)
     const interval = setInterval(() => {
       currentIndex = (currentIndex + 1) % assets.length;
       setCurrentAsset(assets[currentIndex].src);
-      setAssetType(assets[currentIndex].type);
     }, 10000);
 
     // Clean up the interval on component unmount
@@ -32,10 +29,9 @@ export default function Home() {
   }, []);
 
   const containerStyle = {
-    minHeight: '100vh',
+    height: '90vh',
     position: 'relative',
     overflow: 'hidden',
-    backgroundColor: 'black',
   };
 
   const backgroundAssetStyle = {
@@ -45,20 +41,17 @@ export default function Home() {
     height: '100%',
     objectFit: 'cover',
     transition: 'opacity 1000ms ease-in-out',
-  };
-
-  const imageBackgroundStyle = {
-    ...backgroundAssetStyle,
+    backgroundImage: `url(${currentAsset})`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
-    backgroundImage: `url(${currentAsset})`,
   };
 
-  const overlayStyle = {
+  const gradientOverlayStyle = {
     position: 'absolute',
     inset: 0,
-    backgroundColor: 'black',
-    opacity: 0.3,
+    background: `linear-gradient(to top, rgba(0,0,0,0.6), rgba(0,0,0,0) 50%),
+                 linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0) 50%)`,
+    zIndex: 5,
   };
 
   const contentWrapperStyle = {
@@ -69,65 +62,55 @@ export default function Home() {
     alignItems: 'center',
     justifyContent: 'center',
     minHeight: '100vh',
-    color: 'white',
     textAlign: 'center',
     padding: '1rem',
   };
 
-  const subtitleStyle = {
-    fontSize: '0.875rem',
-    fontWeight: 300,
-    textTransform: 'uppercase',
-    letterSpacing: '0.05em',
-    marginBottom: '0.5rem',
-    fontFamily: 'Georgia, serif',
-    color: 'rgba(255, 255, 255, 0.8)',
-  };
-
   const titleStyle = {
-    fontSize: '3rem',
-    fontWeight: 300,
+    fontSize: '5rem',
+    fontWeight: 700,
     textTransform: 'uppercase',
-    letterSpacing: '0.1em',
-    marginBottom: '1rem',
+    letterSpacing: '0.2em',
+    marginBottom: '2rem',
     fontFamily: 'Cinzel, serif',
+    color: '#fff',
+    textShadow: '0 2px 4px rgba(0,0,0,0.5)',
   };
 
   const watchNowButtonStyle = {
-    backgroundColor: 'white',
-    color: 'black',
-    padding: '1rem 3rem',
+    backgroundColor: isHovered ? '#6A0DAD' : '#fff', // Purple on hover
+    color: isHovered ? '#fff' : '#000',
+    padding: '1.25rem 4rem',
     borderRadius: '9999px',
     fontWeight: 600,
     textTransform: 'uppercase',
     letterSpacing: '0.05em',
-    fontSize: '0.875rem',
-    transition: 'background-color 300ms ease',
+    fontSize: '1rem',
+    transition: 'background-color 300ms ease, color 300ms ease',
     border: 'none',
     cursor: 'pointer',
+    textDecoration: 'none',
   };
 
   return (
     <div style={containerStyle}>
       {/* Background Asset */}
-      {assetType === 'video' ? (
-        <video key={currentAsset} autoPlay muted loop playsInline style={backgroundAssetStyle}>
-          <source src={currentAsset} type="video/mp4" />
-          Your browser does not support the video tag. Please check.
-        </video>
-      ) : (
-        <div style={imageBackgroundStyle} />
-      )}
+      <div style={backgroundAssetStyle} />
 
-      {/* Video Overlay for better text readability */}
-      {assetType === 'video' && <div style={overlayStyle} />}
+      {/* Gradient Overlay */}
+      <div style={gradientOverlayStyle} />
 
       {/* Content */}
       <div style={contentWrapperStyle}>
-        <p style={subtitleStyle}>Rolls-Royce Motor Car Presents</p>
-        <h1 style={titleStyle}>Voice of the Maker</h1>
-        <p style={subtitleStyle}>An Inspiring Greatness Series</p>
-        <button style={watchNowButtonStyle}>Watch Now</button>
+        <h1 style={titleStyle}>SPO IIT KANPUR</h1>
+        <a
+          href="https://ras.iitk.ac.in/"
+          style={watchNowButtonStyle}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          RAS PORTAL
+        </a>
       </div>
     </div>
   );
