@@ -113,7 +113,7 @@ export default function Home() {
       {assetType === 'video' ? (
         <video key={currentAsset} autoPlay muted loop playsInline style={backgroundAssetStyle}>
           <source src={currentAsset} type="video/mp4" />
-          Your browser does not support the video tag.
+          Your browser does not support the video tag. Please check.
         </video>
       ) : (
         <div style={imageBackgroundStyle} />

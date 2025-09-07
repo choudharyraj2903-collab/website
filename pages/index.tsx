@@ -96,7 +96,7 @@ export default function Homepage({ posts }: InferGetStaticPropsType<typeof getSt
                   and cutting-edge multidisciplinary research. We at IITK prioritize the 360-degree development of students to meet global
                   standards. Our education system goes over and beyond the classroom lectures. We strongly agree with the overall growth of
                   the students that ensures all our students are ready to meet the new challenges in life. In this regard, Students'
-                  Placement Office (SPO) takes utmost care to groom students according to the needs of the industry.
+                  Placement Office(SPO) takes utmost care to groom students according to the needs of the industry.
                 </p>
                 <br />
                 <Button href="vice-chairman-message">Read More</Button>
