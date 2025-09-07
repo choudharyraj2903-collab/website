@@ -14,7 +14,7 @@ export default function Home() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % assets.length);
-    }, 5000); // every 5s
+    }, 5000);
     return () => clearInterval(interval);
   }, []);
 
@@ -56,11 +56,11 @@ export default function Home() {
     minHeight: '100vh',
     textAlign: 'left',
     padding: '0 5%',
-    maxWidth: '700px',
+    maxWidth: '800px',
   };
 
   const titleStyle = {
-    fontSize: '3.5rem',
+    fontSize: '4.5rem', // bigger than before
     fontWeight: 700,
     lineHeight: 1.2,
     marginBottom: '1rem',
@@ -68,24 +68,24 @@ export default function Home() {
   };
 
   const subtitleStyle = {
-    fontSize: '1.25rem',
+    fontSize: '1.5rem', // bumped up
     color: '#e0e0e0',
-    marginBottom: '2rem',
-    maxWidth: '600px',
+    marginBottom: '2.5rem',
+    maxWidth: '650px',
   };
 
   const buttonGroupStyle = {
     display: 'flex',
-    gap: '1rem',
+    gap: '1.25rem',
   };
 
   const buttonBase = {
-    padding: '1rem 2.5rem',
+    padding: '1.25rem 3rem', // bigger buttons
     borderRadius: '9999px',
     fontWeight: 600,
     textTransform: 'uppercase',
     letterSpacing: '0.05em',
-    fontSize: '1rem',
+    fontSize: '1.125rem', // 18px, slightly larger
     border: '2px solid transparent',
     cursor: 'pointer',
     textDecoration: 'none',
@@ -106,7 +106,7 @@ export default function Home() {
   };
 
   const hoverPrimary = {
-    backgroundColor: '#1E40AF', // blue-800
+    backgroundColor: '#1E40AF',
     color: '#fff',
   };
 
