@@ -1,159 +1,143 @@
-'use client';
+"use client"
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react"
+import styled, { css } from "styled-components"
+
+const Container = styled.div`
+  height: 90vh;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Inter', sans-serif;
+`
+
+const BackgroundAsset = styled.div<{ active: boolean; index: number }>`
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url(${(props) => props.src});
+  background-size: cover;
+  background-position: center;
+  opacity: ${(props) => (props.active ? 1 : 0)};
+  transform: ${(props) =>
+		props.active ? "scale(1.05) translateX(0)" : props.index % 2 === 0 ? "scale(1.1) translateX(20px)" : "scale(1.1) translateX(-20px)"};
+  transition: opacity 1.5s ease-in-out, transform 8s ease;
+  z-index: ${(props) => (props.active ? 1 : 0)};
+`
+
+const GradientOverlay = styled.div`
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.7) 30%, rgba(0, 0, 0, 0.1) 100%);
+  z-index: 2;
+`
+
+const ContentWrapper = styled.div`
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: left;
+  padding: 0 5%;
+  max-width: 800px;
+`
+
+const Title = styled.h1`
+  font-size: 4.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+  color: #f5f5f5;
+`
+
+const Subtitle = styled.p`
+  font-size: 1.5rem;
+  color: #e0e0e0;
+  margin-bottom: 2.5rem;
+  max-width: 650px;
+`
+
+const ButtonGroup = styled.div`
+  display: flex;
+  gap: 1.25rem;
+`
+
+const Button = styled.a<{ variant?: "primary" | "secondary" }>`
+  padding: 1.25rem 3rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 1.125rem;
+  border: 2px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s ease;
+
+  ${(props) =>
+		props.variant === "primary" &&
+    css`
+      background-color: #fff;
+      color: #000;
+      &:hover {
+        background-color: #1e40af;
+        color: #fff;
+      }
+    `}
+
+  ${(props) =>
+		props.variant === "secondary" &&
+    css`
+      background-color: transparent;
+      border: 2px solid #fff;
+      color: #fff;
+      &:hover {
+        background-color: #1e40af;
+        color: #fff;
+        border-color: #1e40af;
+      }
+    `}
+`
 
 export default function Home() {
-  const [currentIndex, setCurrentIndex] = useState(0);
+	const [currentIndex, setCurrentIndex] = useState(0)
 
-  const assets = [
-    { src: '/homeAssets/image1.webp', type: 'image' },
-    { src: '/homeAssets/image3.jpg', type: 'image' },
-    { src: '/homeAssets/image2.jpg', type: 'image' },
-  ];
+	const assets = [
+		{ src: "/homeAssets/image1.webp", type: "image" },
+		{ src: "/homeAssets/image3.jpg", type: "image" },
+		{ src: "/homeAssets/image2.jpg", type: "image" },
+	]
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % assets.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [assets.length]);
+	useEffect(() => {
+		const interval = setInterval(() => {
+			setCurrentIndex((prev) => (prev + 1) % assets.length)
+		}, 5000)
+		return () => clearInterval(interval)
+	}, [assets.length])
 
-  const containerStyle = {
-    height: '90vh',
-    position: 'relative',
-    overflow: 'hidden',
-    fontFamily: "'Inter', sans-serif",
-  };
-
-  const backgroundAssetStyle = (src, active, index) => ({
-    position: 'absolute',
-    inset: 0,
-    width: '100%',
-    height: '100%',
-    backgroundImage: `url(${src})`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    opacity: active ? 1 : 0,
-    transform: active ? 'scale(1.05) translateX(0)' : index % 2 === 0 ? 'scale(1.1) translateX(20px)' : 'scale(1.1) translateX(-20px)',
-    transition: 'opacity 1.5s ease-in-out, transform 8s ease',
-    zIndex: active ? 1 : 0,
-  });
-
-  const gradientOverlayStyle = {
-    position: 'absolute',
-    inset: 0,
-    background: 'linear-gradient(to right, rgba(0,0,0,0.7) 30%, rgba(0,0,0,0.1) 100%)',
-    zIndex: 2,
-  };
-
-  const contentWrapperStyle = {
-    position: 'relative',
-    zIndex: 3,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    justifyContent: 'center',
-    minHeight: '100vh',
-    textAlign: 'left',
-    padding: '0 5%',
-    maxWidth: '800px',
-  };
-
-  const titleStyle = {
-    fontSize: '4.5rem',
-    fontWeight: 700,
-    lineHeight: 1.2,
-    marginBottom: '1rem',
-    color: '#f5f5f5',
-  };
-
-  const subtitleStyle = {
-    fontSize: '1.5rem',
-    color: '#e0e0e0',
-    marginBottom: '2.5rem',
-    maxWidth: '650px',
-  };
-
-  const buttonGroupStyle = {
-    display: 'flex',
-    gap: '1.25rem',
-  };
-
-  const buttonBase = {
-    padding: '1.25rem 3rem',
-    borderRadius: '9999px',
-    fontWeight: 600,
-    textTransform: 'uppercase',
-    letterSpacing: '0.05em',
-    fontSize: '1.125rem',
-    border: '2px solid transparent',
-    cursor: 'pointer',
-    textDecoration: 'none',
-    transition: 'all 0.3s ease',
-  };
-
-  const primaryButtonStyle = {
-    ...buttonBase,
-    backgroundColor: '#fff',
-    color: '#000',
-  };
-
-  const secondaryButtonStyle = {
-    ...buttonBase,
-    backgroundColor: 'transparent',
-    border: '2px solid #fff',
-    color: '#fff',
-  };
-
-  const hoverPrimary = {
-    backgroundColor: '#1E40AF',
-    color: '#fff',
-  };
-
-  const hoverSecondary = {
-    backgroundColor: '#1E40AF',
-    color: '#fff',
-    border: '2px solid #1E40AF',
-  };
-
-  const [hoveredButton, setHoveredButton] = useState('');
-
-  return (
-    <div style={containerStyle}>
-      {assets.map((asset, index) => (
-        <div key={asset.src} style={backgroundAssetStyle(asset.src, index === currentIndex, index)} />
-      ))}
-      <div style={gradientOverlayStyle} />
-      <div style={contentWrapperStyle}>
-        <h1 style={titleStyle}>SPO IIT Kanpur</h1>
-        <p style={subtitleStyle}>
+	return (
+		<Container>
+			{assets.map((asset, index) => (
+				<BackgroundAsset key={asset.src} src={asset.src} active={index === currentIndex} index={index} />
+			))}
+			<GradientOverlay />
+			<ContentWrapper>
+				<Title>SPO IIT Kanpur</Title>
+				<Subtitle>
           The Student Placement Office connects students with career opportunities, recruiters, and mentors for a brighter future.
-        </p>
-        <div style={buttonGroupStyle}>
-          <a
-            href="https://placement.iitk.ac.in/"
-            style={{
-              ...primaryButtonStyle,
-              ...(hoveredButton === 'ras' ? hoverPrimary : {}),
-            }}
-            onMouseEnter={() => setHoveredButton('ras')}
-            onMouseLeave={() => setHoveredButton('')}
-          >
+				</Subtitle>
+				<ButtonGroup>
+					<Button href="https://placement.iitk.ac.in/" variant="primary">
             RAS Portal
-          </a>
-          <a
-            href="https://spo.iitk.ac.in/placement-coordinators"
-            style={{
-              ...secondaryButtonStyle,
-              ...(hoveredButton === 'contact' ? hoverSecondary : {}),
-            }}
-            onMouseEnter={() => setHoveredButton('contact')}
-            onMouseLeave={() => setHoveredButton('')}
-          >
+					</Button>
+					<Button href="https://spo.iitk.ac.in/placement-coordinators" variant="secondary">
             Contact
-          </a>
-        </div>
-      </div>
-    </div>
-  );
+					</Button>
+				</ButtonGroup>
+			</ContentWrapper>
+		</Container>
+	)
 }
