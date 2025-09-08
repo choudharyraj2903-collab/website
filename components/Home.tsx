@@ -16,7 +16,7 @@ export default function Home() {
       setCurrentIndex((prev) => (prev + 1) % assets.length);
     }, 5000);
     return () => clearInterval(interval);
-  }, []);
+  }, [assets.length]); // Fix: Add assets.length to the dependency array
 
   const containerStyle = {
     height: '90vh',
@@ -120,19 +120,20 @@ export default function Home() {
 
   return (
     <div style={containerStyle}>
+           {' '}
       {assets.map((asset, index) => (
         <div key={asset.src} style={backgroundAssetStyle(asset.src, index === currentIndex, index)} />
       ))}
-
-      <div style={gradientOverlayStyle} />
-
+            <div style={gradientOverlayStyle} />     {' '}
       <div style={contentWrapperStyle}>
-        <h1 style={titleStyle}>SPO IIT Kanpur</h1>
+                <h1 style={titleStyle}>SPO IIT Kanpur</h1>       {' '}
         <p style={subtitleStyle}>
-          The Student Placement Office connects students with career opportunities, recruiters, and mentors for a brighter future.
+                    The Student Placement Office connects students with career opportunities, recruiters, and mentors for a brighter future.
+                 {' '}
         </p>
-
+               {' '}
         <div style={buttonGroupStyle}>
+                   {' '}
           <a
             href="https://placement.iitk.ac.in/"
             style={{
@@ -142,8 +143,9 @@ export default function Home() {
             onMouseEnter={() => setHoveredButton('ras')}
             onMouseLeave={() => setHoveredButton('')}
           >
-            RAS Portal
+                        RAS Portal          {' '}
           </a>
+                   {' '}
           <a
             href="https://spo.iitk.ac.in/placement-coordinators"
             style={{
@@ -153,10 +155,13 @@ export default function Home() {
             onMouseEnter={() => setHoveredButton('contact')}
             onMouseLeave={() => setHoveredButton('')}
           >
-            Contact
+                        Contact          {' '}
           </a>
+                 {' '}
         </div>
+             {' '}
       </div>
+         {' '}
     </div>
   );
 }
