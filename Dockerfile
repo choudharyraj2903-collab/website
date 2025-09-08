@@ -11,7 +11,7 @@ RUN git config --global user.name "SPO Web Team"
 RUN git config --global user.email "pas@iitk.ac.in"
 
 RUN git clone --depth 1 https://github.com/spo-iitk/website.git .
-
+    
 EXPOSE 80
 
 RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.1.5/zsh-in-docker.sh)"
