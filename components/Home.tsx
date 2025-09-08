@@ -16,7 +16,7 @@ export default function Home() {
       setCurrentIndex((prev) => (prev + 1) % assets.length);
     }, 5000);
     return () => clearInterval(interval);
-  }, [assets.length]); // Fix: Added assets.length to the dependency array
+  }, [assets.length]);
 
   const containerStyle = {
     height: '90vh',
@@ -60,7 +60,7 @@ export default function Home() {
   };
 
   const titleStyle = {
-    fontSize: '4.5rem', // bigger than before
+    fontSize: '4.5rem',
     fontWeight: 700,
     lineHeight: 1.2,
     marginBottom: '1rem',
@@ -68,7 +68,7 @@ export default function Home() {
   };
 
   const subtitleStyle = {
-    fontSize: '1.5rem', // bumped up
+    fontSize: '1.5rem',
     color: '#e0e0e0',
     marginBottom: '2.5rem',
     maxWidth: '650px',
@@ -80,12 +80,12 @@ export default function Home() {
   };
 
   const buttonBase = {
-    padding: '1.25rem 3rem', // bigger buttons
+    padding: '1.25rem 3rem',
     borderRadius: '9999px',
     fontWeight: 600,
     textTransform: 'uppercase',
     letterSpacing: '0.05em',
-    fontSize: '1.125rem', // 18px, slightly larger
+    fontSize: '1.125rem',
     border: '2px solid transparent',
     cursor: 'pointer',
     textDecoration: 'none',
@@ -120,20 +120,16 @@ export default function Home() {
 
   return (
     <div style={containerStyle}>
-           {' '}
       {assets.map((asset, index) => (
         <div key={asset.src} style={backgroundAssetStyle(asset.src, index === currentIndex, index)} />
       ))}
-            <div style={gradientOverlayStyle} />     {' '}
+      <div style={gradientOverlayStyle} />
       <div style={contentWrapperStyle}>
-                <h1 style={titleStyle}>SPO IIT Kanpur</h1>       {' '}
+        <h1 style={titleStyle}>SPO IIT Kanpur</h1>
         <p style={subtitleStyle}>
-                    The Student Placement Office connects students with career opportunities, recruiters, and mentors for a brighter future.
-                 {' '}
+          The Student Placement Office connects students with career opportunities, recruiters, and mentors for a brighter future.
         </p>
-               {' '}
         <div style={buttonGroupStyle}>
-                   {' '}
           <a
             href="https://placement.iitk.ac.in/"
             style={{
@@ -143,9 +139,8 @@ export default function Home() {
             onMouseEnter={() => setHoveredButton('ras')}
             onMouseLeave={() => setHoveredButton('')}
           >
-                        RAS Portal          {' '}
+            RAS Portal
           </a>
-                   {' '}
           <a
             href="https://spo.iitk.ac.in/placement-coordinators"
             style={{
@@ -155,13 +150,10 @@ export default function Home() {
             onMouseEnter={() => setHoveredButton('contact')}
             onMouseLeave={() => setHoveredButton('')}
           >
-                        Contact          {' '}
+            Contact
           </a>
-                 {' '}
         </div>
-             {' '}
       </div>
-         {' '}
     </div>
   );
 }
