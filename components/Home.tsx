@@ -16,7 +16,7 @@ export default function Home() {
       setCurrentIndex((prev) => (prev + 1) % assets.length);
     }, 5000);
     return () => clearInterval(interval);
-  }, [assets.length]); // Fix: Add assets.length to the dependency array
+  }, [assets.length]); // Fix: Added assets.length to the dependency array
 
   const containerStyle = {
     height: '90vh',
