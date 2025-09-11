@@ -81,45 +81,39 @@ const deptBrochure = [
 	},
 	{
 		idx: "13",
-		dept: "Industrial & Management Engineering",
-		url: "https://www.iitk.ac.in/ime/",
-		link: "/assets/Brochures25_26/IME.pdf"
-	},
-	{
-		idx: "26",
-		dept: "Management Sciences",
-		url: "https://www.iitk.ac.in/doms",
-		link: "/assets/Brochures25_26/DoMS.pdf"
-	},
-	{
-		idx: "14",
 		dept: "MBA Program",
 		url: "https://www.iitk.ac.in/ime/mba-course-structure",
 		link: "/assets/Brochures25_26/MBA.pdf"
 	},
 	{
-		idx: "15",
+		idx: "14",
 		dept: "Materials Science & Engineering",
 		url: "https://www.iitk.ac.in/mse",
 		link: "/assets/Brochures25_26/MSE.pdf"
 	},
 	{
-		idx: "16",
+		idx: "15",
 		dept: "Materials Science Programme",
 		url: "https://www.iitk.ac.in/msp/",
 		link: "/assets/Brochures25_26/MSP.pdf"
 	},
 	{
-		idx: "17",
+		idx: "16",
 		dept: "Mechanical Engineering",
 		url: "https://www.iitk.ac.in/me/",
 		link: "/assets/Brochures25_26/ME.pdf"
 	},
 	{
-		idx: "18",
+		idx: "17",
 		dept: "Mathematics & Scientific Computing",
 		url: "https://www.iitk.ac.in/math/",
 		link: "/assets/Brochures25_26/MTH.pdf"
+	},
+	{
+		idx: "18",
+		dept: "Management Sciences (Industrial & Management Engineering)",
+		url: "https://www.iitk.ac.in/doms",
+		link: "/assets/Brochures25_26/DoMS.pdf"
 	},
 	{
 		idx: "19",
