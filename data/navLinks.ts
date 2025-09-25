@@ -35,7 +35,7 @@ export const navLinks = [
       { title: 'Internship Policy', href: '/companies#ipolicy' },
       { title: 'Facilities', href: '/companies#facilities' },
       { title: 'Resources', href: '/companies#resources' },
-      { title: 'Department Brochures', href: 'https://drive.google.com/file/d/1o7WZPfAJTp8gqzAysba2azJlmMhdacX6/view?usp=sharing' },
+      { title: 'Placement Brochure', href: 'https://drive.google.com/file/d/1o7WZPfAJTp8gqzAysba2azJlmMhdacX6/view?usp=sharing' },
     ],
   },
   {
