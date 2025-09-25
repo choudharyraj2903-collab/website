@@ -186,12 +186,12 @@ const DropdownMenu = styled.ul`
   border-radius: 0.5rem;
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   z-index: calc(var(--z-navbar) + 1);
-  
+
   /* Initial hidden state */
   opacity: 0;
   visibility: hidden;
   transform: translateY(10px);
-  
+
   /* Transition for hiding */
   transition: opacity 0.15s ease, transform 0.15s ease, visibility 0s 0.15s;
 `
@@ -224,9 +224,9 @@ const NavItemWrapper = styled.li<{ outlined?: boolean }>`
   font-size: 1.3rem;
   text-transform: uppercase;
   line-height: 2;
-  
+
   /* A slightly larger hover "bridge" */
-  padding-bottom: 1rem; 
+  padding-bottom: 1rem;
   margin-bottom: -1rem;
 
   &:hover > ${DropdownMenu} {
