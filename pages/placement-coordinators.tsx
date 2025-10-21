@@ -402,6 +402,12 @@ const DPC =[
 		"email": "aikbal24@iitk.ac.in"
 	},
 	{
+		"name": "Parnapalli Sarath Kumar",
+		"department": "Statistics",
+		"phone": "90146 83567",
+		"email": "psarath22@iitk.ac.in"
+	},
+	{
 		"name": "Sujal Yadav",
 		"department": "Statistics",
 		"phone": "8319820687",
