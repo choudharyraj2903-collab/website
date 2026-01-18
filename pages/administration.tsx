@@ -1,5 +1,7 @@
 import NextImage from "next/image"
 import Link from "next/link"
+import { margin } from "polished"
+import { MdEmail } from "react-icons/md"
 import styled from "styled-components"
 
 import AutofitGrid from "components/AutofitGrid"
@@ -9,18 +11,50 @@ import SectionTitle from "components/SectionTitle"
 import { media } from "utils/media"
 
 const TeamMembers = [
+
 	{
+
+		name: "Amarendra Mohanty",
+		position: "Senior Project Manager",
+		image: "/testimonials/amarendra_2022.jpeg",
+		email: "spooffice@iitk.ac.in",
+		phone: "+0512-259-4433"
+	}, {
+
 		name: "Kumar Srikanta Nayak",
 		position: "Career Development Officer",
-		image: "/testimonials/srikanta_2022.jpg",
-		email: "ksnayak@iitk.ac.in",
+		image: "/testimonials/srikanta_2022.jpeg",
+		email: "cdo_spo@iitk.ac.in",
+		phone: "+512-259-4445"
+	}, {
+		name: "Deepika Agarwal",
+		position: "Programme Manager",
+		image: "/testimonials/deepika_2022.jpeg",
+		email: "tmclub@iitk.ac.in",
+		phone: "+512-259-4433/34"
+	}
+	, {
+		name: "Sandeep Kumar",
+		position: "Superintendent",
+		image: "/testimonials/sandeep_2022.jpeg",
+		email: "spooffice@iitk.ac.in",
+		phone: "+512-259-4433/34"
+	}
+	, {
+
+		name: "Kumar Vaibhav",
+		position: "Junior Assistant",
+		image: "/testimonials/vaibhav_2022.jpeg",
+		email: "phdplacement@iitk.ac.in",
+		phone: "+512-259-4433/34"
 	},
 	{
-		name: "Amarendra Mohanty",
-		position: "Deputy Project Manager",
-		image: "/testimonials/amarendra_2022.jpg",
-		email: "amaren@iitk.ac.in",
-	},
+		name: "Rachit Kumar Yadav",
+		position: "Junior Assistant",
+		image: "/testimonials/rachit_2022.jpeg",
+		email: "spooffice@iitk.ac.in",
+		phone: "+512-259-4433/34"
+	}
 ]
 
 export default function OfficeTeam() {
@@ -46,15 +80,28 @@ export default function OfficeTeam() {
 					</Card>
 				</div>
 				<SectionTitle>SPO Officials</SectionTitle>
-				<Container style={{textAlign:"center"}}>
-					<CustomAutofitGrid className="Administrationcard" style={{display:"flex",justifyContent:"space-around"}}>
+				<Container style={{textAlign: "center"}}>
+				
+					<CustomAutofitGrid className="Administrationcard" style={{ display: "flex", justifyContent: "center", flexWrap: "wrap" }}>
+
 						{TeamMembers.map((member) => (
-							<div key={member.name}>
+							<div key={member.name} style={{ width: "29em" ,margin:"0 auto"}}>
 								<Card>
 									{member.image && <NextImage src={member.image} width={128} height={128} alt={member.name} />}
 									<Title>{member.name}</Title>
 									<Description>{member.position}</Description>
-									{/*<Description><Link href={`mailto:${member.email}`} passHref>{member.email}</Link></Description>*/}
+								
+									<Description>{member.phone}</Description>
+									<Description>
+										<Link
+											href={`mailto:${member.email}`}
+    
+											aria-label="Send email"
+										>
+											<MdEmail size={18} />
+										</Link>
+									</Description>
+
 								</Card>
 							</div>
 						))}
