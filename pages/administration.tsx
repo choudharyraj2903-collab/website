@@ -14,18 +14,19 @@ const TeamMembers = [
 
 	{
 
-		name: "Amarendra Mohanty",
-		position: "Senior Project Manager",
-		image: "/testimonials/amarendra_2022.jpeg",
-		email: "spooffice@iitk.ac.in",
-		phone: "+0512-259-4433"
-	}, {
-
 		name: "Kumar Srikanta Nayak",
 		position: "Career Development Officer",
 		image: "/testimonials/srikanta_2022.jpeg",
 		email: "cdo_spo@iitk.ac.in",
 		phone: "+512-259-4445"
+	},
+	{
+
+		name: "Amarendra Mohanty",
+		position: "Senior Project Manager",
+		image: "/testimonials/amarendra_2022.jpeg",
+		email: "spooffice@iitk.ac.in",
+		phone: "+0512-259-4433"
 	}, {
 		name: "Deepika Agarwal",
 		position: "Programme Manager",
@@ -80,22 +81,22 @@ export default function OfficeTeam() {
 					</Card>
 				</div>
 				<SectionTitle>SPO Officials</SectionTitle>
-				<Container style={{textAlign: "center"}}>
-				
+				<Container style={{ textAlign: "center" }}>
+
 					<CustomAutofitGrid className="Administrationcard" style={{ display: "flex", justifyContent: "center", flexWrap: "wrap" }}>
 
 						{TeamMembers.map((member) => (
-							<div key={member.name} style={{ width: "29em" ,margin:"0 auto"}}>
+							<div key={member.name} style={{ width: "29em", margin: "0 auto" }}>
 								<Card>
 									{member.image && <NextImage src={member.image} width={128} height={128} alt={member.name} />}
 									<Title>{member.name}</Title>
 									<Description>{member.position}</Description>
-								
+
 									<Description>{member.phone}</Description>
 									<Description>
 										<Link
 											href={`mailto:${member.email}`}
-    
+
 											aria-label="Send email"
 										>
 											<MdEmail size={18} />
