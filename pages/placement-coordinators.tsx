@@ -57,7 +57,7 @@ const TeamMembers = [
 		phone: "(+91) 79839 35040",
 		mail: "shubhamkm25@iitk.ac.in",
 		linkedin: "https://www.linkedin.com/in/shubham-kumar-mishra-601b82170/",
-		image: "/testimonials/Shubham.png",
+		image: "/testimonials/shubham.png",
 	},
 	{
 		name: "Bhairavi Shivajirao Salunke",
