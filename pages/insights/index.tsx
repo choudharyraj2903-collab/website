@@ -14,11 +14,19 @@ import SectionTitle from "components/SectionTitle"
 import { media } from "utils/media"
 import { getAllPosts } from "utils/postsFetcher"
 
-import placementData from "./2025placement.json" 
+import placementData from "./2025placement.json"
+import { keyframes } from "styled-components"
 
 export default function BlogIndexPage({ posts }: InferGetStaticPropsType<typeof getStaticProps>) {
 	const [searchValue, setSearchValue] = useState("")
+	function extractNameAndCompany(title: string) {
+		const [name, company] = title.split("Placed at :").map(str => str.trim());
 
+		return {
+			name,
+			company,
+		};
+	}
 	const filteredBlogPosts = posts.filter((singlePost) => {
 		const searchContent = singlePost.meta.title + singlePost.meta.description + singlePost.content + singlePost.meta.tags
 		return searchContent.toLowerCase().includes(searchValue.toLowerCase())
@@ -44,58 +52,66 @@ export default function BlogIndexPage({ posts }: InferGetStaticPropsType<typeof 
 			<br />
 			<div style={{ width: "100%", display: "grid", placeItems: "center" }}>
 				<CustomSectionTitle>2025 Placement Insight</CustomSectionTitle>
-				<CustomUl>
+				<br></br>
+				<CustomAutofitGrid>
 					{placementData.map((item, idx) => (
 						<NextLink
 							href={item.Upload}
 							passHref
 							key={idx}
 						>
-							<BlogItem>
-								<BlogDate>2025-8-25</BlogDate>
-								<BlogTitle>{item.Name}:  Placed at {item.Company}</BlogTitle>
-							</BlogItem>
+
+							<Card>
+								<BlogItem>
+									<BlogTitle>{item.Name}<br></br>Placed at: {item.Company}</BlogTitle>
+								</BlogItem>
+							</Card>
 						</NextLink>
 					))}
-				</CustomUl>
+				</CustomAutofitGrid>
 			</div>
 			<br />
 			<div style={{ width: "100%", display: "grid", placeItems: "center" }}>
-				<CustomUl>
 					{!filteredBlogPosts.length && "No posts found."}
 					<CustomSectionTitle>{filteredBlogPosts.length && "2024 Placement Insight"}</CustomSectionTitle>
 					<br></br>
+				<CustomAutofitGrid>
 					{filteredBlogPosts.map((singlePost, idx) => {
 						if (singlePost.slug.includes("2024-placement")) {
 							return (
 								<NextLink href={"/insights/" + singlePost.slug} passHref key={idx}>
-									<BlogItem>
-										<BlogDate>{singlePost.meta.date}</BlogDate>
-										<BlogTitle>{singlePost.meta.title}</BlogTitle>
-									</BlogItem>
+									
+									<Card>
+										<BlogItem>
+											{/* <BlogDate>{singlePost.meta.date}</BlogDate> */}
+											<BlogTitle>{singlePost.meta.title}</BlogTitle>
+										</BlogItem>
+										</Card>
 								</NextLink>
 							)
 						} else {
 							return <></>
 						}
-
 					})}
-				</CustomUl>
+				</CustomAutofitGrid>
 			</div>
 			<br />
 			<div style={{ width: "100%", display: "grid", placeItems: "center" }}>
-				<CustomUl>
+		
 					{!filteredBlogPosts.length && "No posts found."}
-					<CustomSectionTitle>{filteredBlogPosts.length && "2024 Internship Insight"}</CustomSectionTitle>
-					<br></br>
+				<CustomSectionTitle>{filteredBlogPosts.length && "2024 Internship Insight"}</CustomSectionTitle>
+				<br></br>
+				<CustomAutofitGrid>
 					{filteredBlogPosts.map((singlePost, idx) => {
 						if (singlePost.slug.includes("2024-intern")) {
 							return (
 								<NextLink href={"/insights/" + singlePost.slug} passHref key={idx}>
+									<Card>
 									<BlogItem>
-										<BlogDate>{singlePost.meta.date}</BlogDate>
+										{/* <BlogDate>{singlePost.meta.date}</BlogDate> */}
 										<BlogTitle>{singlePost.meta.title}</BlogTitle>
-									</BlogItem>
+										</BlogItem>
+										</Card>
 								</NextLink>
 							)
 						} else {
@@ -103,7 +119,7 @@ export default function BlogIndexPage({ posts }: InferGetStaticPropsType<typeof 
 						}
 
 					})}
-				</CustomUl>
+				</CustomAutofitGrid>
 			</div>
 		</Page>
 	)
@@ -116,14 +132,28 @@ const CustomInput = styled(Input)`
 `
 
 const CustomUl = styled.ul`
-	list-style: none;
-	width: 80%;
+	list-style:none;
+	width: 90%;
 	@media (max-width: 768px) {
-		width: 100%;
+		width: 50%;
 		margin-left: 0;
 		padding-inline-start: 0;
 	}
 	
+`
+const CustomAutofitGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  width: 100%;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
 `
 
 const CustomSectionTitle = styled(SectionTitle)`
@@ -153,7 +183,7 @@ const BlogItem = styled.li`
 	font-weight: bold;
 	display: flex;
 	flex-direction: row;
-	gap: 3rem;
+	gap: 1rem;
 	@media (max-width: 768px) {
 		flex-direction: column;
 		gap: 0;
@@ -173,10 +203,9 @@ const DropdownMenu = styled.div`
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 	z-index: 1;
 `
-
 const Card = styled.div`
   display: flex;
-  padding: 2.5rem;
+  padding: 1rem;
   background: rgb(var(--cardBackground));
   box-shadow: var(--shadow-md);
   flex-direction: column;
@@ -187,23 +216,47 @@ const Card = styled.div`
   border-radius: 0.6rem;
   color: rgb(var(--text));
   font-size: 1.6rem;
+  cursor: pointer;
 
-  & > *:not(:first-child) {
-    margin-top: 1rem;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-8px) scale(1.04);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
   }
+`;
+// const Card = styled.div`
+//   display: flex;
+//   padding: 1rem;
+//   background: rgb(var(--cardBackground));
+//   box-shadow: var(--shadow-md);
+//   flex-direction: column;
+//   justify-content: center;
+//   align-items: center;
+//   text-align: center;
+//   width: 100%;
+//   border-radius: 0.6rem;
+//   color: rgb(var(--text));
+//   font-size: 1.6rem;
+
+//   & > *:not(:first-child) {
+//     margin-top: 1rem;
+//   }
 `
 
-const CustomAutofitGrid = styled(AutofitGrid)`
-  --autofit-grid-item-size: 20rem;
+// const CustomAutofitGrid = styled(AutofitGrid)`
+//   --autofit-grid-item-size: 100rem;
 
-  ${media("<=tablet")} {
-    --autofit-grid-item-size: 15rem;
-  }
+//   ${media("<=tablet")} {
+//     --autofit-grid-item-size: 15rem;
+//   }
 
-  ${media("<=phone")} {
-    --autofit-grid-item-size: 50%;
-  }
-`
+//   ${media("<=phone")} {
+//     --autofit-grid-item-size: 50%;
+//   }
+// `
 
 const Link = styled.a`
   text-decoration: none;
