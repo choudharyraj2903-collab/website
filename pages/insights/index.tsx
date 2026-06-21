@@ -2,7 +2,7 @@
 import { InferGetStaticPropsType } from "next"
 import NextLink from "next/link"
 import { useState } from "react"
-import styled from "styled-components"
+import styled, { keyframes } from "styled-components"
 import { Button } from "tinacms"
 
 
@@ -15,17 +15,15 @@ import { media } from "utils/media"
 import { getAllPosts } from "utils/postsFetcher"
 
 import placementData from "./2025placement.json"
-import { keyframes } from "styled-components"
 
 export default function BlogIndexPage({ posts }: InferGetStaticPropsType<typeof getStaticProps>) {
 	const [searchValue, setSearchValue] = useState("")
 	function extractNameAndCompany(title: string) {
-		const [name, company] = title.split("Placed at :").map(str => str.trim());
-
+		const [name, company] = title.split("Placed at :").map(str => str.trim())
 		return {
 			name,
 			company,
-		};
+		}
 	}
 	const filteredBlogPosts = posts.filter((singlePost) => {
 		const searchContent = singlePost.meta.title + singlePost.meta.description + singlePost.content + singlePost.meta.tags
@@ -72,21 +70,21 @@ export default function BlogIndexPage({ posts }: InferGetStaticPropsType<typeof 
 			</div>
 			<br />
 			<div style={{ width: "100%", display: "grid", placeItems: "center" }}>
-					{!filteredBlogPosts.length && "No posts found."}
-					<CustomSectionTitle>{filteredBlogPosts.length && "2024 Placement Insight"}</CustomSectionTitle>
-					<br></br>
+				{!filteredBlogPosts.length && "No posts found."}
+				<CustomSectionTitle>{filteredBlogPosts.length && "2024 Placement Insight"}</CustomSectionTitle>
+				<br></br>
 				<CustomAutofitGrid>
 					{filteredBlogPosts.map((singlePost, idx) => {
 						if (singlePost.slug.includes("2024-placement")) {
 							return (
 								<NextLink href={"/insights/" + singlePost.slug} passHref key={idx}>
-									
+
 									<Card>
 										<BlogItem>
 											{/* <BlogDate>{singlePost.meta.date}</BlogDate> */}
 											<BlogTitle>{singlePost.meta.title}</BlogTitle>
 										</BlogItem>
-										</Card>
+									</Card>
 								</NextLink>
 							)
 						} else {
@@ -97,8 +95,8 @@ export default function BlogIndexPage({ posts }: InferGetStaticPropsType<typeof 
 			</div>
 			<br />
 			<div style={{ width: "100%", display: "grid", placeItems: "center" }}>
-		
-					{!filteredBlogPosts.length && "No posts found."}
+
+				{!filteredBlogPosts.length && "No posts found."}
 				<CustomSectionTitle>{filteredBlogPosts.length && "2024 Internship Insight"}</CustomSectionTitle>
 				<br></br>
 				<CustomAutofitGrid>
@@ -107,11 +105,11 @@ export default function BlogIndexPage({ posts }: InferGetStaticPropsType<typeof 
 							return (
 								<NextLink href={"/insights/" + singlePost.slug} passHref key={idx}>
 									<Card>
-									<BlogItem>
-										{/* <BlogDate>{singlePost.meta.date}</BlogDate> */}
-										<BlogTitle>{singlePost.meta.title}</BlogTitle>
+										<BlogItem>
+											{/* <BlogDate>{singlePost.meta.date}</BlogDate> */}
+											<BlogTitle>{singlePost.meta.title}</BlogTitle>
 										</BlogItem>
-										</Card>
+									</Card>
 								</NextLink>
 							)
 						} else {
@@ -226,7 +224,7 @@ const Card = styled.div`
     transform: translateY(-8px) scale(1.04);
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
   }
-`;
+`
 // const Card = styled.div`
 //   display: flex;
 //   padding: 1rem;
@@ -244,7 +242,7 @@ const Card = styled.div`
 //   & > *:not(:first-child) {
 //     margin-top: 1rem;
 //   }
-`
+// `
 
 // const CustomAutofitGrid = styled(AutofitGrid)`
 //   --autofit-grid-item-size: 100rem;
