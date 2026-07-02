@@ -1,3 +1,4 @@
+/* eslint-disable no-multiple-empty-lines */
 import { InferGetStaticPropsType } from "next"
 import NextLink from "next/link"
 import { useState, useMemo } from "react"
