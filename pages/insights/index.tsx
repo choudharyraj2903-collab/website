@@ -1,4 +1,3 @@
-/* eslint-disable no-multiple-empty-lines */
 import { InferGetStaticPropsType } from "next"
 import NextLink from "next/link"
 import { useState, useMemo } from "react"
@@ -73,7 +72,7 @@ const StatCard = ({ label, value }: { label: string; value: number }) => (
 export default function BlogIndexPage({ posts }: InferGetStaticPropsType<typeof getStaticProps>) {
   const [searchValue, setSearchValue] = useState("");
 
-  const { placement2025, filtered2025, filtered2025Interns, placements2024, interns2024, stats } = useMemo(() => {
+  const { filtered2025, filteredPlacements2025, filtered2025Interns, placements2024, interns2024, stats } = useMemo(() => {
     const query = searchValue.toLowerCase().trim();
 
     // 1. Filter 2025 Placement Data (Existing)
@@ -88,7 +87,7 @@ export default function BlogIndexPage({ posts }: InferGetStaticPropsType<typeof 
       const searchString = `${item.Name} ${item.Company} ${item.Role || ""}`.toLowerCase();
       return searchString.includes(query);
     });
-    const f2025Placements = (placement2025Data as any[]).filter((item) => {
+      const f2025Placements = (placement2025Data as any[]).filter((item) => {
       // Including Role in the search string so users can search by "GTE Intern"
       const searchString = `${item.Name} ${item.Company} ${item.Role || ""}`.toLowerCase();
       return searchString.includes(query);
@@ -108,20 +107,20 @@ export default function BlogIndexPage({ posts }: InferGetStaticPropsType<typeof 
 
     return {
       filtered2025: f2025,
-      placement2025: f2025Placements,
+      filteredPlacements2025: f2025Placements,
       filtered2025Interns: f2025Interns, // Return the new filtered data
       placements2024: p2024,
       interns2024: i2024,
       stats: {
-        totalPlacements: placementData.length + all2024Placements + f2025Placements.length,
+        totalPlacements: placementData.length + placement2025Data.length + all2024Placements,
         totalInternships: intern2025Data.length + all2024Interns, // Update stats!
-        totalInsights: placementData.length + intern2025Data.length + all2024Placements + all2024Interns,
+        totalInsights: placementData.length + placement2025Data.length + intern2025Data.length + all2024Placements + all2024Interns,
       },
     };
   }, [searchValue, posts]);
 
   // Don't forget to update the empty state check!
-  const hasNoResults = filtered2025.length === 0 && filtered2025Interns.length === 0 && placements2024.length === 0 && interns2024.length === 0;
+  const hasNoResults = filtered2025.length === 0 && filteredPlacements2025.length === 0 && filtered2025Interns.length === 0 && placements2024.length === 0 && interns2024.length === 0;
   return (
     <Page title="SPO Insights" description="Explore interview experiences and preparation strategies from IIT Kanpur students.">
       
@@ -187,12 +186,12 @@ export default function BlogIndexPage({ posts }: InferGetStaticPropsType<typeof 
             </Grid>
           </Section>
         )}
-        {placement2025.length > 0 && (
+        {filteredPlacements2025.length > 0 && (
           <Section>
             <SectionHeader>2025-26 Placement Insights</SectionHeader>
             <Grid>
-                  {placement2025.map((item, idx) => (
-                    <NextLink href={item.Upload} passHref key={`2025-p-${idx}`}>
+              {filteredPlacements2025.map((item, idx) => (
+                <NextLink href={item.Upload} passHref key={`2025-p-${idx}`}>
                   <CardWrapper>
                     <CardHeader>
                       <AvatarPlaceholder>{item.Name.charAt(0).toUpperCase()}</AvatarPlaceholder>
@@ -214,7 +213,6 @@ export default function BlogIndexPage({ posts }: InferGetStaticPropsType<typeof 
             </Grid>
           </Section>
         )}
-
 
         {/* 2025 Placement Insights */}
         {filtered2025.length > 0 && (
